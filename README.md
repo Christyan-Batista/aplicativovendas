@@ -1,0 +1,2 @@
+# aplicativovendas
+# aplicativovendas
