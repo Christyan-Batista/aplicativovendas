@@ -7,7 +7,7 @@ class iniciarfuncoes():
 
 
     def cadastrarusuario(self, nome, email, telefone, cpf, endereco):
-        self.nome = nome
+        self.nome = name
         self.email = email
         self.telefone = telefone
         self.cpf = cpf
