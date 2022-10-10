@@ -19,9 +19,7 @@ class iniciarfuncoes():
                            "Cpf": [self.cpf],
                            "Endereco":[self.endereco]})
         df_excel = pd.read_excel(self.adress, sheet_name="CadastroUsuario")
-        adicionarcadastro = pd.concat([df_excel, df], ignore_index=True)
-        adicionarcadastro.to_excel(self.adress,sheet_name='CadastroUsuario', index=False)
-
+        addexcelmult.addusuarioexcel(df_usuario, df_excel, self.address)
 
     def cadastroprodutos(self, categoria, produto, cor, precocompra, precovenda):
         self.categoria = categoria
@@ -34,3 +32,5 @@ class iniciarfuncoes():
                                    "cor": [self.cor],
                                    "precocompra": [self.precocompra],
                                    "precovenda": [self.precovenda]})  #Tranformando os dados para um formato legível no excel
+        df_excel_produtonovo = pd.read_excel(self.address, sheet_name='CadastroProduto')
+        addexcelmult.addprodutoexcel(df_produto, df_excel_produtonovo, self.address)
