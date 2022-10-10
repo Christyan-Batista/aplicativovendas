@@ -2,10 +2,10 @@ import funcoesapp
 
 iniciar = funcoesapp.iniciarfuncoes()
 
-nome = input('Digite o nome:')
-email = '1'
-telefone = '5' 
-cpf = '4'
-endereco = '9' 
+categoria = input('Digite o nome:')
+produto = '1'
+cor = '5' 
+precocompra = '4'
+precovenda = '9' 
 
-iniciar.cadastrarusuario(nome, email, telefone, cpf, endereco)
+iniciar.cadastroprodutos(categoria, produto, cor, precocompra, precovenda)
