@@ -1,4 +1,5 @@
 import pandas as pd
+import addexcelmult
 
 class iniciarfuncoes():
 
@@ -18,8 +19,8 @@ class iniciarfuncoes():
                            "Cpf": [self.cpf],
                            "Endereco":[self.endereco]})
         df_excel = pd.read_excel(self.adress, sheet_name="CadastroUsuario")
-        adicionarcadastro = pd.concat([df_excel, df], ignore_index=True)
-        adicionarcadastro.to_excel(self.adress,sheet_name='CadastroUsuario', index=False)
+        
+        addexcelmult.addusuarioexcel(df, df_excel, self.adress)
 
         print(df)
         return
