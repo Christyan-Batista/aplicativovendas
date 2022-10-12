@@ -6,8 +6,8 @@ class iniciarfuncoes():
     def __init__(self):
         self.address = 'dados.xlsx'
 
-
-    def cadastrarusuario(self, nome, email, telefone, cpf, endereco):
+    def cadastrarusuario(self, nome, email, telefone, cpf, endereco):  # Cadastro de usuarios
+        self.nomeplanilha = 'CadastroUsuario'
         self.nome = nome
         self.email = email
         self.telefone = telefone
@@ -18,19 +18,45 @@ class iniciarfuncoes():
                            "Telefone": [self.telefone],
                            "Cpf": [self.cpf],
                            "Endereco":[self.endereco]})
-        df_excel = pd.read_excel(self.adress, sheet_name="CadastroUsuario")
-        addexcelmult.addusuarioexcel(df_usuario, df_excel, self.address)
 
-    def cadastroprodutos(self, categoria, produto, cor, precocompra, precovenda):
+        
+        addexcelmult.addusuarioexcel(df_usuario, addexcelmult.lerplanilha(self.nomeplanilha))
+
+    def cadastroprodutos(self, categoria, produto, cor, precocompra, precovenda, estoque):  #Cadastro de Produtos
+        self.nomeplanilha = 'CadastroProduto'
         self.categoria = categoria
         self.produto = produto
         self.cor = cor
         self.precocompra = precocompra
         self.precovenda = precovenda
+        self.estoque = estoque
         df_produto = pd.DataFrame({"categoria": [self.categoria],
                                    "produto": [self.produto],
                                    "cor": [self.cor],
                                    "precocompra": [self.precocompra],
-                                   "precovenda": [self.precovenda]})  #Tranformando os dados para um formato legível no excel
-        df_excel_produtonovo = pd.read_excel(self.address, sheet_name='CadastroProduto')
-        addexcelmult.addprodutoexcel(df_produto, df_excel_produtonovo, self.address)
+                                   "precovenda": [self.precovenda],
+                                   "estoque": [self.estoque]})  #Tranformando os dados para um formato legível no excel
+    
+
+        addexcelmult.addprodutoexcel(df_produto, addexcelmult.lerplanilha(self.nomeplanilha))
+        return
+
+
+    def cadastrarvenda(self, categoria, produto, cor, qtd_vendida):
+        self.nomeplanilha = 'Vendas'
+        self.categoria = categoria
+        self.produto = produto
+        self.cor = cor
+        self.qtd_vendida = qtd_vendida
+
+        df_venda = pd.DataFrame({"categoria": [self.categoria],
+                                 "produto":[self.produto],
+                                 "cor":[self.cor],
+                                 "qtd_venda": [self.qtd_vendida]}
+                                 )
+
+        df_excelprod = pd.read_excel(self.address, sheet_name=self.nomeplanilha)
+
+        addexcelmult.cadastrarvenda(df_venda, df_excelprod)
+        
+
