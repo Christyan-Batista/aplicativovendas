@@ -43,7 +43,7 @@ class iniciarfuncoes():
 
 
     def cadastrarvenda(self, categoria, produto, cor, qtd_vendida):
-        self.nomeplanilha = 'Vendas'
+        self.nomeplanilha = 'CadastroVenda'
         self.categoria = categoria
         self.produto = produto
         self.cor = cor
