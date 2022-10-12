@@ -4,7 +4,7 @@ import addexcelmult
 class iniciarfuncoes():
 
     def __init__(self):
-    self.address = 'dados.xlsx'
+        self.address = 'dados.xlsx'
 
     def cadastrarusuario(self, nome, email, telefone, cpf, endereco):  # Cadastro de usuarios
         self.nomeplanilha = 'CadastroUsuario'
@@ -18,9 +18,9 @@ class iniciarfuncoes():
                            "Telefone": [self.telefone],
                            "Cpf": [self.cpf],
                            "Endereco":[self.endereco]})
-
         
         addexcelmult.addusuarioexcel(df_usuario, addexcelmult.lerplanilha(self.nomeplanilha))
+        return
 
     def cadastroprodutos(self, categoria, produto, cor, precocompra, precovenda, estoque):  #Cadastro de Produtos
         self.nomeplanilha = 'CadastroProduto'
@@ -30,14 +30,14 @@ class iniciarfuncoes():
         self.precocompra = precocompra
         self.precovenda = precovenda
         self.estoque = estoque
-        df_produto = pd.DataFrame({"categoria": [self.categoria],
+        df_produto = pd.DataFrame({"id": [gerarcodigoproduto()],
+                                   "categoria": [self.categoria],
                                    "produto": [self.produto],
                                    "cor": [self.cor],
                                    "precocompra": [self.precocompra],
                                    "precovenda": [self.precovenda],
                                    "estoque": [self.estoque]})  #Tranformando os dados para um formato legível no excel
                                     
-
         addexcelmult.addprodutoexcel(df_produto, addexcelmult.lerplanilha(self.nomeplanilha))
         return
 
@@ -54,9 +54,6 @@ class iniciarfuncoes():
                                  "cor":[self.cor],
                                  "qtd_venda": [self.qtd_vendida]}
                                  )
-
+        
         addexcelmult.cadastrarvenda(df_venda, addexcelmult.lerplanilha(self.nomeplanilha))
-        
-        
-        
-
+        return
