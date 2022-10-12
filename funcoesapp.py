@@ -4,7 +4,7 @@ import addexcelmult
 class iniciarfuncoes():
 
     def __init__(self):
-        self.address = 'dados.xlsx'
+    self.address = 'dados.xlsx'
 
     def cadastrarusuario(self, nome, email, telefone, cpf, endereco):  # Cadastro de usuarios
         self.nomeplanilha = 'CadastroUsuario'
@@ -43,7 +43,7 @@ class iniciarfuncoes():
 
 
     def cadastrarvenda(self, categoria, produto, cor, qtd_vendida):
-        self.nomeplanilha = 'CadastroVenda'
+        self.nomeplanilha = 'Vendas'
         self.categoria = categoria
         self.produto = produto
         self.cor = cor
@@ -56,6 +56,7 @@ class iniciarfuncoes():
                                  )
 
         addexcelmult.cadastrarvenda(df_venda, addexcelmult.lerplanilha(self.nomeplanilha))
+        
         
         
 
