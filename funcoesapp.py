@@ -36,7 +36,7 @@ class iniciarfuncoes():
                                    "precocompra": [self.precocompra],
                                    "precovenda": [self.precovenda],
                                    "estoque": [self.estoque]})  #Tranformando os dados para um formato legível no excel
-    
+                                    
 
         addexcelmult.addprodutoexcel(df_produto, addexcelmult.lerplanilha(self.nomeplanilha))
         return
@@ -55,8 +55,7 @@ class iniciarfuncoes():
                                  "qtd_venda": [self.qtd_vendida]}
                                  )
 
-        df_excelprod = pd.read_excel(self.address, sheet_name=self.nomeplanilha)
-
-        addexcelmult.cadastrarvenda(df_venda, df_excelprod)
+        addexcelmult.cadastrarvenda(df_venda, addexcelmult.lerplanilha(self.nomeplanilha))
+        
         
 
