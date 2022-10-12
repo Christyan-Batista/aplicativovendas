@@ -31,3 +31,4 @@ def lerplanilha(stringplanilha):  #Funcão que lê a planilha e retorna para det
 
 def gerarcodigoproduto():
     print()
+    print()
