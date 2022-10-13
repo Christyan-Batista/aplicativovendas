@@ -30,4 +30,17 @@ def lerplanilha(stringplanilha):  #Funcão que lê a planilha e retorna para det
 
 
 def gerarcodigoproduto():
-    print()
+    gerarId = randint(1000,9999)
+
+    try:
+        lerId = pd.read_excel(arquivo_xml, sheet_name='CadastroProduto')['id']
+    except:
+        return gerarId
+
+    while True:
+        if gerarId in lerId:
+            gerarId = randint(1000,9999)
+        else:
+            break
+    
+    return lerId

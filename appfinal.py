@@ -9,4 +9,5 @@ precocompra = '4'
 precovenda = '9' 
 estoque = 5
 
-iniciar.cadastrarvenda(categoria, produto, cor, 3)
+iniciar.cadastroprodutos(categoria, produto, cor, precocompra, precovenda, estoque)
+

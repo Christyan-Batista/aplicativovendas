@@ -30,7 +30,7 @@ class iniciarfuncoes():
         self.precocompra = precocompra
         self.precovenda = precovenda
         self.estoque = estoque
-        df_produto = pd.DataFrame({"id": [gerarcodigoproduto()],
+        df_produto = pd.DataFrame({"id": [addexcelmult.gerarcodigoproduto()],
                                    "categoria": [self.categoria],
                                    "produto": [self.produto],
                                    "cor": [self.cor],
