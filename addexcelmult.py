@@ -43,4 +43,4 @@ def gerarcodigoproduto():
         else:
             break
     
-    return lerId
+    return gerarId
