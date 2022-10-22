@@ -6,10 +6,18 @@ arquivo_xml = 'dados.xlsx'
 
 # Função que insere uma nova linha na planilha com o novo usuario
 def addusuarioexcel(df, df_excel):
-    resultado_concat = pd.concat([df_excel, df])
-    with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-        resultado_concat.to_excel(
-            writer, sheet_name='CadastroUsuario', index=False)
+    
+    planilha_usuario, f_ou_v = verificausuario(df)
+    
+    if f_ou_v:
+        with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
+            planilha_usuario.to_excel(
+                writer, sheet_name='CadastroUsuario', index=False)
+    else:
+        resultado_concat = pd.concat([df_excel, df])
+        with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
+            resultado_concat.to_excel(
+                writer, sheet_name='CadastroUsuario', index=False)
     return
 
 
@@ -91,3 +99,21 @@ def gerarcodigoproduto():
             break
 
     return gerarId
+
+
+def verificausuario(df_usuario):
+    planilha_usuario = lerplanilha('CadastroUsuario') #retorna a planilha do excel
+    f_ou_v = False
+
+    for num, c in enumerate(planilha_usuario['Cpf']): #laço para ler as colunas dos cpf's
+        
+        if c == df_usuario['Cpf'][0]:
+            f_ou_v = True
+            planilha_usuario['Email'][num] = df_usuario['Email'][0]
+            planilha_usuario['Telefone'][num] = df_usuario['Telefone'][0]
+            planilha_usuario['Endereco'][num] = df_usuario['Endereco'][0]
+
+        else:
+            f_ou_v = False
+    
+    return planilha_usuario, f_ou_v

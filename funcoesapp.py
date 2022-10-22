@@ -61,3 +61,19 @@ class iniciarfuncoes():
         addexcelmult.cadastrarvenda(
             df_venda, addexcelmult.lerplanilha(self.nomeplanilha))
         return
+    
+
+    def encontrarusuario(self, cpf):
+        self.nomeplanilha = 'CadastroUsuario'
+        self.row = 0
+        encontrado = 0
+        ler_usuario = addexcelmult.lerplanilha(self.nomeplanilha)
+        for num, c in enumerate(ler_usuario['Cpf']):
+            if cpf == c:
+                self.row = num
+                encontrado = 1
+        
+        if encontrado == 1:
+            return ler_usuario.iloc[self.row] #captura a linha em que está o cpf
+        else:
+            return False #retorna falso se o usuario não for encontrado
