@@ -10,14 +10,12 @@ def addusuarioexcel(df, df_excel):
     planilha_usuario, f_ou_v = verificausuario(df)
     
     if f_ou_v:
-        with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-            planilha_usuario.to_excel(
-                writer, sheet_name='CadastroUsuario', index=False)
+        escrever_excel(planilha_usuario, 'CadastroUsuario')
+
     else:
         resultado_concat = pd.concat([df_excel, df])
-        with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-            resultado_concat.to_excel(
-                writer, sheet_name='CadastroUsuario', index=False)
+        escrever_excel(resultado_concat, 'CadastroUsuario')
+
     return
 
 
@@ -28,23 +26,22 @@ def addprodutoexcel(df_prod, df_excel):
     if verifica:  # É verdadeiro se o confirma for 1, logo, ele soma com o valor já existente de estoque
         df_excel['estoque'][num] = df_prod['estoque']
         # Apenas substitui linha existente no excel
-        with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-            df_excel.to_excel(
-                writer, sheet_name='CadastroProduto', index=False)
+
+        escrever_excel(df_excel, 'CadastroProduto')
+
     else:
         resultado_conc = pd.concat([df_excel, df_prod])
         # Adiciona uma nova linha comn o mesmo id
-        with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-            resultado_conc.to_excel(
-                writer, sheet_name='CadastroProduto', index=False)
+        escrever_excel(resultado_conc, 'CadastroProduto')
+
     return
 
 
 def cadastrarvenda(df_venda, df_excel_venda):
     resultado_concat = pd.concat([df_excel_venda, df_venda])
-    with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
-        # Adicionando a venda a folha de venda
-        resultado_concat.to_excel(writer, sheet_name='Vendas', index=False)
+
+    escrever_excel(resultado_concat, 'Vendas')
+
     return
 
 
@@ -117,3 +114,9 @@ def verificausuario(df_usuario):
             f_ou_v = False
     
     return planilha_usuario, f_ou_v
+
+
+def escrever_excel(valorescrito, nome_planilha):
+    with pd.ExcelWriter(arquivo_xml, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
+        valorescrito.to_excel(writer, sheet_name=nome_planilha, index=False)
+    return
