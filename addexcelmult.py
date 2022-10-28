@@ -6,9 +6,9 @@ arquivo_xml = 'dados.xlsx'
 
 # Função que insere uma nova linha na planilha com o novo usuario
 def addusuarioexcel(df, df_excel):
-    
+
     planilha_usuario, f_ou_v = verificausuario(df)
-    
+
     if f_ou_v:
         escrever_excel(planilha_usuario, 'CadastroUsuario')
 
@@ -54,7 +54,12 @@ def lerplanilha(stringplanilha):  # Funcão que lê a planilha e retorna para de
 def verificaplanilha(df_produto):
     confirma = None
     ler = lerplanilha('CadastroProduto')
+
+    if ler.empty:
+        confirma = 0
+        return df_produto, confirma, 0
     # Laço para verificar as linhas da planilha de acordo com cada categoria atribuiada a "c"
+
     for num, c in enumerate(ler['categoria']):
 
         if df_produto['categoria'][0] == c:
@@ -65,20 +70,17 @@ def verificaplanilha(df_produto):
             if verificar[0] == df_produto['categoria'][0]:
                 if verificar[1] == df_produto['produto'][0]:
                     if verificar[2] == df_produto['cor'][0]:
-                        if verificar[3] == df_produto['precocompra'][0] and verificar[4] == df_produto['precovenda'][0]:
-                            # Ele soma com o valor já existente de estoque
-                            df_produto['estoque'][0] += ler['estoque'][num]
-                            confirma = 1
-                            break
-                        else:
-                            # Atribui o valor id de um id já existente
-                            df_produto['id'][0] = ler['id'][num]
-                            confirma = 0
-                            break
+                        if verificar[3] == df_produto['precocompra'][0]:
+                            if verificar[4] == df_produto['precovenda'][0]:
+                                df_produto['estoque'][0] += ler['estoque'][num]
+                                confirma = 1
+                                return df_produto, confirma, num
 
+    df_produto['id'][0] = ler['id'][num]
+    confirma = 0
+    return df_produto, confirma, num
     # Se confirma = 1, o estoque foi mudado. Se confirma = 0, deve-se adicionar uma nova linha e manter o id existente
     # Num retorna a linha que eu estou trabalhando
-    return df_produto, confirma, num
 
 
 def gerarcodigoproduto():
@@ -99,11 +101,13 @@ def gerarcodigoproduto():
 
 
 def verificausuario(df_usuario):
-    planilha_usuario = lerplanilha('CadastroUsuario') #retorna a planilha do excel
+    # retorna a planilha do excel
+    planilha_usuario = lerplanilha('CadastroUsuario')
     f_ou_v = False
 
-    for num, c in enumerate(planilha_usuario['Cpf']): #laço para ler as colunas dos cpf's
-        
+    # laço para ler as colunas dos cpf's
+    for num, c in enumerate(planilha_usuario['Cpf']):
+
         if c == df_usuario['Cpf'][0]:
             f_ou_v = True
             planilha_usuario['Email'][num] = df_usuario['Email'][0]
@@ -112,7 +116,7 @@ def verificausuario(df_usuario):
 
         else:
             f_ou_v = False
-    
+
     return planilha_usuario, f_ou_v
 
 

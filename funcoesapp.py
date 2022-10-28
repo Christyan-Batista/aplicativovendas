@@ -45,17 +45,21 @@ class iniciarfuncoes():
             df_produto, addexcelmult.lerplanilha(self.nomeplanilha))
         return
 
-    def cadastrarvenda(self, categoria, produto, cor, qtd_vendida):
+    def cadastrarvenda(self, categoria, produto, cor, qtd_vendida, precovenda, data):
         self.nomeplanilha = 'Vendas'
         self.categoria = categoria
         self.produto = produto
         self.cor = cor
         self.qtd_vendida = qtd_vendida
+        self.precovenda = precovenda
+        self.data = data
 
         df_venda = pd.DataFrame({"categoria": [self.categoria],
                                  "produto": [self.produto],
                                  "cor": [self.cor],
-                                 "qtd_venda": [self.qtd_vendida]}
+                                 "qtd_venda": [self.qtd_vendida],
+                                 "precovenda": [self.precovenda],
+                                 "data": [self.data]}
                                 )
 
         addexcelmult.cadastrarvenda(

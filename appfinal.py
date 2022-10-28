@@ -29,11 +29,33 @@ class aplicacao():
                 self.janela_usuario = self.janela_cad_usuario()
 
             if self.janela == self.janela_usuario and self.evento == 'cadastrar':
-                self.inicializar_lib.cadastrarusuario(self.valor['nome'],
-                                                      self.valor['email'],
-                                                      self.valor['telefone'],
-                                                      self.valor['cpf'],
-                                                      self.valor['endereço'])
+                self.inicializar_lib.cadastrarusuario(str(self.valor['nome']),
+                                                      str(self.valor['email']),
+                                                      str(self.valor['telefone']),
+                                                      str(self.valor['cpf']),
+                                                      str(self.valor['endereço']),)
+
+            if self.janela == self.janela_menu and self.evento == 'Produto':
+                self.janela_produto = self.janela_cad_produto()
+            
+            if self.janela == self.janela_produto and self.evento == 'cadastrar':
+                self.inicializar_lib.cadastroprodutos(str(self.valor['categoria']),
+                                                      str(self.valor['produto']),
+                                                      str(self.valor['cor']),
+                                                      float(self.valor['precocompra']),
+                                                      float(self.valor['precovenda']),
+                                                      int(self.valor['estoque']),)
+
+            if self.janela == self.janela_menu and self.evento == 'Vendas':
+                self.janela_venda = self.janela_cad_vendas()
+            
+            if self.janela == self.janela_venda and self.evento == 'cadastrar':
+                self.inicializar_lib.cadastrarvenda(str(self.valor['categoria']),
+                                                      str(self.valor['produto']),
+                                                      str(self.valor['cor']),
+                                                      int(self.valor['quantidade']),
+                                                      float(self.valor['precovenda']),
+                                                      str(self.valor['data']),)
 
 
     def janela_principal(self):
@@ -49,10 +71,10 @@ class aplicacao():
     def janela_cad_usuario(self):
 
         self.layout_coluna_usuario1 = [[sg.Text('Nome', background_color='black')],
-                                      [sg.Text('Email')],
-                                      [sg.Text('Telefone')],
-                                      [sg.Text('CPF')],
-                                      [sg.Text('Endereço')]
+                                      [sg.Text('Email',background_color='black')],
+                                      [sg.Text('Telefone',background_color='black')],
+                                      [sg.Text('CPF',background_color='black')],
+                                      [sg.Text('Endereço',background_color='black')]
                                      ]
         
         self.layout_coluna_usuario2 = [[sg.Input(key='nome')],
@@ -68,6 +90,61 @@ class aplicacao():
                                 [sg.Button('Cadastrar', key='cadastrar')]]
 
         return sg.Window('Cadastrar Usuario', self.layout_usuario, resizable=True, size=(450, 200), 
+                        background_color='black', finalize=True)
+
+
+
+    def janela_cad_produto(self):
+
+        self.layout_coluna_usuario3 = [[sg.Text('Categoria', background_color='black')],
+                                      [sg.Text('Produto',background_color='black')],
+                                      [sg.Text('Cor',background_color='black')],
+                                      [sg.Text('Preço Compra',background_color='black')],
+                                      [sg.Text('Preço Venda',background_color='black')],
+                                      [sg.Text('Estoque',background_color='black')]
+                                     ]
+        
+        self.layout_coluna_usuario4 = [[sg.Input(key='categoria')],
+                                       [sg.Input(key='produto')],
+                                       [sg.Input(key='cor')],
+                                       [sg.Input(key='precocompra')],
+                                       [sg.Input(key='precovenda')],
+                                       [sg.Input(key='estoque')]
+                                      ]
+
+        self.layout_usuario2 = [
+                               [sg.Column(self.layout_coluna_usuario3, background_color='black'), 
+                                sg.Column(self.layout_coluna_usuario4,background_color='black')],
+                                [sg.Button('Cadastrar', key='cadastrar')]]
+
+        return sg.Window('Cadastrar Produto', self.layout_usuario2, resizable=True, size=(450, 200), 
+                        background_color='black', finalize=True)
+
+
+    def janela_cad_vendas(self):
+
+        self.layout_coluna_usuario5 = [[sg.Text('Categoria', background_color='black')],
+                                      [sg.Text('Produto',background_color='black')],
+                                      [sg.Text('Cor',background_color='black')],
+                                      [sg.Text('Quantidade',background_color='black')],
+                                      [sg.Text('Preço Venda',background_color='black')],
+                                      [sg.Text('Data (DD/MM/AAAA)',background_color='black')],
+                                     ]
+        
+        self.layout_coluna_usuario6 = [[sg.Input(key='categoria')],
+                                       [sg.Input(key='produto')],
+                                       [sg.Input(key='cor')],
+                                       [sg.Input(key='quantidade')],
+                                       [sg.Input(key='precovenda')],
+                                       [sg.Input(key='data')]
+                                      ]
+
+        self.layout_usuario3 = [
+                               [sg.Column(self.layout_coluna_usuario5, background_color='black'), 
+                                sg.Column(self.layout_coluna_usuario6,background_color='black')],
+                                [sg.Button('Cadastrar', key='cadastrar')]]
+
+        return sg.Window('Cadastrar Venda', self.layout_usuario3, resizable=True, size=(450, 200), 
                         background_color='black', finalize=True)
 
 iniciar = aplicacao()
